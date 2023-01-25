@@ -19,13 +19,17 @@ class UncrustifyCmd(FormatterCmd):
         super().__init__(self.command, self.lookbehind, args)
         self.check_installed()
         self.parse_args(args)
+        print(f"args = {args}")
         self.set_diff_flag()
         self.add_if_missing(["-q"])  # Remove stderr, which causes issues
+        print(f"self.args = {self.args}")
         self.file_flag = "-f"
         self.edit_in_place = "--replace" in self.args
         if "-c" not in self.args:
             self.fix_defaults()
             self.add_if_missing(["-c", "defaults.cfg"])
+
+        print(f"self.args = {self.args}")
 
     @staticmethod
     def fix_defaults():
@@ -52,6 +56,7 @@ class UncrustifyCmd(FormatterCmd):
 
 def main(argv: List[str] = sys.argv):
     cmd = UncrustifyCmd(argv)
+    print(f"argv = {argv}")
     cmd.run()
 
 
